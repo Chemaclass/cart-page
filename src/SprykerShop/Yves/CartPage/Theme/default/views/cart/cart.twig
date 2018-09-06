@@ -60,7 +60,7 @@
                     {% endif %}
 
                     {% if canWriteSharedCart %}
-                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if not is_granted('ROLE_USER') %}
                             {{ widget('DiscountVoucherFormWidgetPlugin') }}
                             <hr />
                         {% endif %}
