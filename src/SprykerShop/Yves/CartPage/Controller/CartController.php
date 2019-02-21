@@ -124,10 +124,13 @@ class CartController extends AbstractController
     public function addCarAction($quantity, array $optionValueIds, Request $request)
     {
         $sku = $request->get('sku');
+        $task = $request->get('task');
 
         if (!$sku) {
             $this->addErrorMessage("Nice try! You wonna check the validation, didn't you? Nerd. 😅 C'mon, select a car...");
-            return $this->redirectResponseInternal('workshop-fe');
+            return $this->redirectResponseInternal('workshop-fe', [
+                'task' => $task
+            ]);
         }
 
         return $this->addAction($sku, $quantity, $optionValueIds, $request);
