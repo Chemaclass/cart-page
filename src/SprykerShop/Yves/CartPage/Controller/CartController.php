@@ -120,6 +120,28 @@ class CartController extends AbstractController
     }
 
     /**
+     * @param int $quantity
+     * @param array $optionValueIds
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addCarAction($quantity, array $optionValueIds, Request $request)
+    {
+        $sku = $request->get('sku');
+        $task = $request->get('task');
+
+        if (!$sku) {
+            $this->addErrorMessage("Nice try! You wonna check the validation, didn't you? Nerd. 😅 C'mon, select a car...");
+            return $this->redirectResponseInternal('workshop-fe', [
+                'task' => $task
+            ]);
+        }
+
+        return $this->addAction($sku, $quantity, $optionValueIds, $request);
+    }
+
+    /**
      * @param string $sku
      * @param int $quantity
      * @param \Symfony\Component\HttpFoundation\Request $request
